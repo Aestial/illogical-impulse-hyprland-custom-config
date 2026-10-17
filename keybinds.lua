@@ -4,8 +4,6 @@
 -- Default new i2c Lua hyprland customs
 hl.bind("CTRL+SUPER+ALT+Slash", hl.dsp.exec_cmd("xdg-open ~/.config/hypr/custom/keybinds.lua"), {description = "Edit user keybinds"} )
 
--- TODO: Test each new binding to match best practices of current (i2c) settings
-
 -- Bind Super + Backspace to killactive
 hl.bind("SUPER + BackSpace",  hl.dsp.window.close())
 
@@ -27,7 +25,7 @@ hl.bind("SUPER + R",          hl.dsp.exec_cmd("rider"))
 
 -- Bind Chromium browser to Super + R
 hl.unbind("SUPER + W")
-hl.bind("SUPER + W",          hl.dsp.exec_cmd("firefox"))
+hl.bind("SUPER + W",          hl.dsp.exec_cmd("librewolf"))
 hl.bind("SUPER + ALT + W",    hl.dsp.exec_cmd("chromium"))
 hl.bind("SUPER + SHIFT + B",  hl.dsp.exec_cmd("brave"))
 
@@ -35,13 +33,21 @@ hl.bind("SUPER + SHIFT + B",  hl.dsp.exec_cmd("brave"))
 hl.bind("SUPER + Z",          hl.dsp.exec_cmd("zen-browser"))
 
 -- Hyprexpo: toggle workspace overview (plugin dispatcher)
--- hl.bind("SUPER + SHIFT + W",  hl.dsp.exec_raw("hyprexpo:expo toggle"))
+-- hl.bind("SUPER + SHIFT + W", function() 
+--     hl.plugin.hyprexpo.expo("toggle")
+-- end)
+
+-- GloView Hyprland pluginWWW
+hl.unbind("SUPER + TAB")
+hl.bind("SUPER + TAB", hl.plugin.gloview.toggle)
+hl.bind("SUPER + SHIFT + TAB", hl.plugin.gloview.desktop)
+hl.bind("SUPER + CTRL + TAB", hl.plugin.gloview.allworkspaces) -- Not working?
 
 -- Bind Super + Space for launcher
 hl.bind("SUPER + Space",      hl.dsp.exec_cmd("pkill fuzzel || fuzzel"))  -- Best launcher: fuzzel
 
 -- ------------
--- Logitech [Model] keyboard specific.
+-- * Logitech [Model] keyboard specific.
 -- Bind special keys from Logitech+Microsoft retro keyboard.
 -- With Windows XP-7 applications keys and ugly aero design.
 
