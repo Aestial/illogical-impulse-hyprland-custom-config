@@ -4,10 +4,10 @@
 
 -- * Opacity config
 -- Low transparency
-hl.window_rule({ match = { class = "^(Antigravity|Code|electron|firefox|heroic|obsidian|Rider|Spotify|zed)$" }, opacity = "0.985 0.925 1" })
+hl.window_rule({ match = { class = "^(Antigravity|Code|electron|firefox|heroic|Logseq|obsidian|Rider|Spotify|zed)$" }, opacity = "0.985 0.925 1" })
 
 -- Normal transparency
-hl.window_rule({ match = { class = "^(Cider|Deskflow|fr\\.handbrake\\.ghb|logseq|psst-gui|vesktop)$" }, opacity = "0.95 0.875 0.99" })
+hl.window_rule({ match = { class = "^(Cider|Deskflow|fr\\.handbrake\\.ghb|psst-gui|vesktop)$" }, opacity = "0.95 0.875 0.99" })
 
 -- No transparency
 hl.window_rule({ match = { class = "^(Anydesk|blender|Godot|krita|Chromium|gimp|GB Studio|steam|Unity|davinci-resolve|vlc)$" }, opacity = "1 1 1" })

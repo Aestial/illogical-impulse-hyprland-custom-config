@@ -1,7 +1,7 @@
 -- Put general config stuff here
 -- https://wiki.hypr.land/Configuring/Basics/Variables/
 
--- TODO: Check if this is not longer necessary
+-- Plugins permission management 
 hl.permission("/usr/(bin|local/bin)/hyprpm", "plugin", "allow")
 
 hl.config({
@@ -60,19 +60,38 @@ hl.config({
     },
 })
 
--- Monitors
-hl.monitor({ output = "DP-4", mode = "2560x1440", position = "0x0",    scale = 1 })
-hl.monitor({ output = "DP-2", mode = "1920x1080", position = "2560x0", scale = 1, transform = 1 })
+-- MONITORS (Desktop setup 2026)
+-- Monitor names ('hyprctl monitors all')
+local MAIN   = "DP-4"
+local SECOND = "DP-2"
 
--- Bind workspaces 1-10 (group 1) to primary monitor
-for i = 1, 10 do
-    hl.workspace_rule({ workspace = tostring(i), monitor = "DP-4", default = true })
+local function apply_monitors()
+    if hl.get_monitor(SECOND) ~= nil then
+	-- Second screen present: dual layout
+	hl.monitor({ output = MAIN, mode = "2560x1440", position = "0x0", scale = 1 })
+	hl.monitor({ output = SECOND, mode = "1920x1080", position = "2560x0", scale = 1, transform = 1 })
+	-- Bind workspaces 1-10 (group 1) to primary monitor
+	for i = 1, 10 do
+    	    hl.workspace_rule({ workspace = tostring(i), monitor = "DP-4", default = true })
+	end
+	-- Bind workspaces 11-20 (group 2) to secondary monitor
+	for i = 11, 20 do
+	    hl.workspace_rule({ workspace = tostring(i), monitor = "DP-2", default = true })
+	end
+    else
+	-- Default: single monitor
+	hl.monitor({ output = MAIN, mode = "preferred", position = "0x0", scale = 1 })
+	-- Bind workspaces 1-20 (all) to primary monitor
+	for i = 1, 20 do
+    	    hl.workspace_rule({ workspace = tostring(i), monitor = "DP-4", default = true })
+	end
+    end
 end
 
--- Bind workspaces 11-20 (group 2) to secondary monitor
-for i = 11, 20 do
-    hl.workspace_rule({ workspace = tostring(i), monitor = "DP-2", default = true })
-end
+apply_monitors()
+
+hl.on("monitor.added", 	 apply_monitors)
+hl.on("monitor.removed", apply_monitors)
 
 -- ** PLUGINS
 -- * hyprwinwrap
